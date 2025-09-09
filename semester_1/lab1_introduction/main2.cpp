@@ -1,11 +1,13 @@
 #include <bits/stdc++.h>
-#define int long long
 
-int32_t main()
+int main()
 {
     int n;
     std::cout << "Enter n : ";
-    std::cin >> n;
+    if (!(std::cin >> n)) {
+        std::cout << "Error!";
+        std::exit(1);
+    }
     int sum = 0;
     int pr = 1;
     for (int i = 1; i <= n; i++) {
@@ -17,3 +19,4 @@ int32_t main()
     std::cout << sum << " " << pr;
     return 0;
 }
+
