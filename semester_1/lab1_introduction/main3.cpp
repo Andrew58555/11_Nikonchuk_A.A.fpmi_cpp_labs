@@ -15,4 +15,8 @@ int main()
     std::cout << k;
     return 0;
 }
+//if n == 5, then the answer will be 3413
+//if n == 6, then the answer will be 50069
+//if n == 10, then the answer will be 10405071317
+//if n > 15, then the answer will be outside the data type and output space debris
 
