@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+#define int long long
+
+int32_t main()
+{
+    int k;
+    std::cout << "Enter k : ";
+    std::cin >> k;
+    if (k % 2 == 0) {
+        int f = 1;
+        for (int i = 2; i <= k; i += 2) {
+            f *= i;
+        }
+        std::cout << f;
+        return 0;
+    }
+    int f = 1;
+    for (int i = 1; i <= k; i += 2) {
+        f *= i;
+    }
+    std::cout << f;
+    return 0;
+}
