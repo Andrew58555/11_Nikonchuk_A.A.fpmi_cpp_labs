@@ -1,11 +1,13 @@
 #include <bits/stdc++.h>
-#define int long long
 
-int32_t main()
+int main()
 {
     int n;
     std::cout << "Enter n : ";
-    std::cin >> n;
+    if (!(std::cin >> n)) {
+        std::cout << "Error!";
+        std::exit(1);
+    }
     int k = 0;
     for (int i = 1; i <= n; i++) {
         k += pow(i, i);
@@ -13,3 +15,4 @@ int32_t main()
     std::cout << k;
     return 0;
 }
+
