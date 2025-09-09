@@ -5,7 +5,10 @@ int32_t main()
 {
     int k;
     std::cout << "Enter k : ";
-    std::cin >> k;
+    if (!(std::cin >> k)) {
+        std::cout << "Error!";
+        std::exit(1);
+    }
     if (k % 2 == 0) {
         int f = 1;
         for (int i = 2; i <= k; i += 2) {
@@ -21,3 +24,4 @@ int32_t main()
     std::cout << f;
     return 0;
 }
+
