@@ -1,16 +1,22 @@
 #include <bits/stdc++.h>
-#define int long long
 
-int32_t main()
+int main()
 {
     int n, m;
     std::cout << "Enter n : ";
-    std::cin >> n;
+    if (!(std::cin >> n)) {
+        std::cout << "Error!";
+        std::exit(1);
+    }
     std::cout << "Enter m : ";
-    std::cin >> m;
+    if (!(std::cin >> m)) {
+        std::cout << "Error!";
+        std::exit(1);
+    }
     for (int i = 1; i <= std::min(n, m); i++) {
         if (n % i == 0 && m % i == 0)
             std::cout << i << " ";
     }
     return 0;
 }
+
