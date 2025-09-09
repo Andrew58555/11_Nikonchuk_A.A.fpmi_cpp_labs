@@ -1,11 +1,13 @@
 #include <bits/stdc++.h>
-#define int long long
 
-int32_t main()
+int main()
 {
     int n;
     std::cout << "Enter n : ";
-    std::cin >> n;
+    if (!(std::cin >> n)) {
+        std::cout << "Error!";
+        std::exit(1);
+    }
     int a = n;
     int min_a = 11;
     while (a) {
@@ -26,3 +28,4 @@ int32_t main()
     std::cout << res;
     return 0;
 }
+
