@@ -4,7 +4,7 @@ int main()
 {
     int n;
     std::cout << "Enter n : ";
-    if (!(std::cin >> n)) {
+    if (!(std::cin >> n) || n < 1) {
         std::cout << "Error!";
         std::exit(1);
     }
@@ -28,4 +28,5 @@ int main()
     std::cout << res;
     return 0;
 }
+
 
