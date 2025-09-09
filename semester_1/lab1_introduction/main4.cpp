@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
-#define int long long
 
-int32_t main()
+int main()
 {
     int k;
     std::cout << "Enter k : ";
@@ -24,4 +23,5 @@ int32_t main()
     std::cout << f;
     return 0;
 }
+
 
