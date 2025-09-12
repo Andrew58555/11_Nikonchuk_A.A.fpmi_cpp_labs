@@ -12,16 +12,18 @@ int main() {
         for (int i = 2; i <= k; i += 2) {
             f *= i;
         }
-        std::cout << f;
-        return 0;
+        std::cout << "subfactorial = " << f;
     }
-    int f = 1;
-    for (int i = 1; i <= k; i += 2) {
-        f *= i;
+    else {
+        int f = 1;
+        for (int i = 1; i <= k; i += 2) {
+            f *= i;
+        }
+        std::cout << "subfactorial = " << f;
     }
-    std::cout << f;
     return 0;
 }
+
 
 
 
