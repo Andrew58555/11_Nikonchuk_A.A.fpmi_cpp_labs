@@ -15,8 +15,9 @@ int main() {
         else
             pr *= i;
     }
-    std::cout << sum << " " << pr;
+    std::cout << "sum = " << sum << ", pr = " << pr;
     return 0;
 }
+
 
 
