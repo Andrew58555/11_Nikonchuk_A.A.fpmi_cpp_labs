@@ -12,8 +12,9 @@ int main() {
         sum += l;
         l += 2;
     }
-    std::cout << sum;
+    std::cout << "sum = " << sum;
     return 0;
 }
+
 
 
