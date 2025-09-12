@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
 
-int main()
-{
+int main() {
     int n, m;
     std::cout << "Enter n : ";
-    if (!(std::cin >> n)) {
+    if (!(std::cin >> n) || n < 1) {
         std::cout << "Error!";
         std::exit(1);
     }
     std::cout << "Enter m : ";
-    if (!(std::cin >> m)) {
+    if (!(std::cin >> m) || m < 1) {
         std::cout << "Error!";
         std::exit(1);
     }
@@ -19,4 +18,5 @@ int main()
     }
     return 0;
 }
+
 
