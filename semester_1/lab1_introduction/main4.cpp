@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 
-int main()
-{
+int main() {
     int k;
     std::cout << "Enter k : ";
-    if (!(std::cin >> k)) {
+    if (!(std::cin >> k) || k < 1) {
         std::cout << "Error!";
         std::exit(1);
     }
@@ -23,5 +22,6 @@ int main()
     std::cout << f;
     return 0;
 }
+
 
 
