@@ -24,9 +24,10 @@ int main() {
         }
         a /= 10;
     }
-    std::cout << res;
+    std::cout << "result = " << res;
     return 0;
 }
+
 
 
 
