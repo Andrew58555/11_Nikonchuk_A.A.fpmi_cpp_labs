@@ -12,11 +12,13 @@ int main() {
         std::cout << "Error!";
         std::exit(1);
     }
+    std::cout << "Dividers : ";
     for (int i = 1; i <= std::min(n, m); i++) {
         if (n % i == 0 && m % i == 0)
             std::cout << i << " ";
     }
     return 0;
 }
+
 
 
