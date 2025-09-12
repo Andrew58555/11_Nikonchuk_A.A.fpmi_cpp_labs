@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 
-int main()
-{
+int main() {
     int n;
     std::cout << "Enter n : ";
-    if (!(std::cin >> n)) {
+    if (!(std::cin >> n) || n < 1) {
         std::cout << "Error!";
         std::exit(1);
     }
@@ -19,4 +18,5 @@ int main()
 //if n == 6, then the answer will be 50069
 //if n == 10, then the answer will be 10405071317
 //if n > 15, then the answer will be outside the data type and output space debris
+
 
