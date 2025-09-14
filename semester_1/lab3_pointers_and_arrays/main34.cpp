@@ -1,13 +1,7 @@
 #include <bits/stdc++.h>
+
 const int N = 100000;
 int a[N];
-
-int rnd() {
-    int x = rand();
-    if (x % 2 == 0)
-        return - x;
-    return x;
-}
 
 int main() {
     int n;
@@ -25,9 +19,26 @@ int main() {
     }
     int ind = 0;
     if (ch == 1) {
+        int a1, b1;
+        std::cout << "Enter a : ";
+        if (!(std::cin >> a1)) {
+            std::cout << "Error";
+            std::exit(0);
+        }
+        std::cout << "Enter b : ";
+        if (!(std::cin >> b1)) {
+            std::cout << "Error";
+            std::exit(0);
+        }
+        std::mt19937 gen(45218965);
+        int x = a1 + b1;
+        a1 = std::min(a1, b1);
+        b1 = x - a1;
+        std::uniform_int_distribution<int> dist(a1, b1);
         std::cout << "Random array : ";
         for (int i = 0; i < n; i++) {
-            a[i] = rnd();
+            int x1 = dist(gen);
+            a[i] = x1;
             if (a[i] > 0)
                 ind = i;
             std::cout << a[i] << " ";
