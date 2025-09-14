@@ -1,14 +1,7 @@
 #include <bits/stdc++.h>
+
 const int N = 100000;
 double a[N];
-
-double rnd(){
-    int x = rand();
-    int y = rand() + 1;
-    if (x % 2 == 0)
-        return - 100 * x / (double) y;
-    return 100 * x / (double) y;
-}
 
 int main() {
     int n;
@@ -27,9 +20,26 @@ int main() {
     double pr = 1.000;
     double min_a = 1e7, ind = 0;
     if (ch == 1) {
+        double a1, b1;
+        std::cout << "Enter a : ";
+        if (!(std::cin >> a1)) {
+            std::cout << "Error";
+            std::exit(0);
+        }
+        std::cout << "Enter b : ";
+        if (!(std::cin >> b1)) {
+            std::cout << "Error";
+            std::exit(0);
+        }
+        std::mt19937 gen(45218965);
+        double x = a1 + b1;
+        a1 = std::min(a1, b1);
+        b1 = x - a1;
+        std::uniform_real_distribution<double> dist(a1, b1);
         std::cout << "Random array : ";
         for (int i = 0; i < n; i++) {
-            a[i] = rnd();
+            double x1 = dist(gen);
+            a[i] = x1;
             std::cout << a[i] << " ";
             if (a[i] > 0)
                 pr *= a[i];
@@ -83,3 +93,4 @@ int main() {
         std::cout << a[i] << " ";
     return 0;
 }
+
