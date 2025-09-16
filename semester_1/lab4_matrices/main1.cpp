@@ -10,26 +10,26 @@ int main() {
     std::cout << "Enter n (length of square) : ";
     if (!(std::cin >> n) || n < 0) {
         std::cout << "Error";
-        std::exit(0);
+        return 0;
     }
     std::cout << "Do you want to generate random matrix?\n";
     std::cout << "Enter 1, if you want or 0, if not : ";
     int ch;
     if (!(std::cin >> ch) || (ch != 0 && ch != 1)) {
         std::cout << "Error";
-        std::exit(0);
+        return 0;
     }
     if (ch == 1) {
         int a1, b1;
         std::cout << "Enter a : ";
         if (!(std::cin >> a1)) {
             std::cout << "Error";
-            std::exit(0);
+            return 0;
         }
         std::cout << "Enter b : ";
         if (!(std::cin >> b1)) {
             std::cout << "Error";
-            std::exit(0);
+            return 0;
         }
         std::mt19937 gen(45218965);
         int x = a1 + b1;
@@ -52,7 +52,7 @@ int main() {
             for (int j = 0; j < n; j++) {
                 if (!(std::cin >> a[i][j])) {
                     std::cout << "Error";
-                    std::exit(0);
+                    return 0;
                 }
             }
         }
