@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <random>
 
 const int N = 100000;
 int a[N];
@@ -8,14 +9,14 @@ int main() {
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
         std::cout << "Error";
-        std::exit(0);
+        return 1;
     }
     std::cout << "Do you want to generate random array?\n";
     std::cout << "Enter 1, if you want or 0, if not : ";
     int ch;
     if (!(std::cin >> ch) || (ch != 0 && ch != 1)) {
         std::cout << "Error";
-        std::exit(0);
+        return 1;
     }
     int ind = 0;
     if (ch == 1) {
@@ -23,12 +24,12 @@ int main() {
         std::cout << "Enter a : ";
         if (!(std::cin >> a1)) {
             std::cout << "Error";
-            std::exit(0);
+            return 1;
         }
         std::cout << "Enter b : ";
         if (!(std::cin >> b1)) {
             std::cout << "Error";
-            std::exit(0);
+            return 1;
         }
         std::mt19937 gen(45218965);
         int x = a1 + b1;
@@ -39,8 +40,9 @@ int main() {
         for (int i = 0; i < n; i++) {
             int x1 = dist(gen);
             a[i] = x1;
-            if (a[i] > 0)
+            if (a[i] > 0) {
                 ind = i;
+            }
             std::cout << a[i] << " ";
         }
     }
@@ -49,10 +51,11 @@ int main() {
         for (int i = 0; i < n; i++) {
             if (!(std::cin >> a[i])) {
                 std::cout << "Error";
-                std::exit(0);
+                return 1;
             }
-            if (a[i] > 0)
+            if (a[i] > 0) {
                 ind = i;
+            }
         }
     }
     int sum = 0;
@@ -70,35 +73,40 @@ int main() {
                     break;
                 }
             }
-            if (flag && max_a < j + 1)
+            if (flag && max_a < j + 1) {
                 max_a = j + 1, ind = i;
+            }
         }
     }
     std::cout << "max size of palindrome is " << max_a << "\npalindrome : ";
-    for (int i = ind; i < ind + max_a; i++)
+    for (int i = ind; i < ind + max_a; i++) {
         std::cout << a[i] << " ";
+    }
     std::cout << "\n";
     int A, B;
     std::cout << "Enter a : ";
     if (!(std::cin >> A)) {
         std::cout << "Error";
-        std::exit(0);
+        return 1;
     }
     std::cout << "Enter b : ";
     if (!(std::cin >> B) || B < A) {
         std::cout << "Error";
-        std::exit(0);
+        return 1;
     }
     int h = 0;
     std::cout << "Update array : ";
     for (int i = 0; i < n; i++) {
-        if (abs(a[i]) < A or abs(a[i]) > B)
+        if (abs(a[i]) < A or abs(a[i]) > B) {
             std::cout << a[i] << " ";
-        else
+        }
+        else {
             h++;
+        }
     }
     for (int i = 0; i < h; i++) {
         std::cout << "0 ";
     }
     return 0;
 }
+
