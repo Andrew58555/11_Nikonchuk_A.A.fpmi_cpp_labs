@@ -57,27 +57,30 @@ int main() {
         std::cout << "Error";
         return 0;
     }
-    if (ch == 1)
+    if (ch == 1) {
         rnd();
-    else
+    }
+    else {
         enterMatrix();
+    }
     for (int i = 0; i < n; i++) {
-        int rt = -1e4;
+        int cur = -1e4;
         for (int j = 0; j < n; j++) {
-            rt = std::max(rt, a[j][i]);
+            cur = std::max(cur, a[j][i]);
         }
-        if (rt >= 0)
+        if (cur >= 0)
             std::cout << "in the " << i + 1 << " cologne there is positive element\n";
         else
-            std::cout << "max element in the " << i + 1 << " cologne is " << rt <<"\n";
+            std::cout << "max element in the " << i + 1 << " cologne is " << cur <<"\n";
     }
-    int k = 0;
+    int ans = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             if (i + j + 1 >= n && a[i][j] < 0)
-                k++;
+                ans++;
         }
     }
-    std::cout << "Answer is " << k;
+    std::cout << "Answer is " << ans;
     return 0;
 }
+
