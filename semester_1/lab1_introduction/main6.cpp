@@ -1,11 +1,12 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 int main() {
+
     int n;
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
         std::cout << "Error!";
-        std::exit(1);
+        return 1;
     }
     int sum = 0, l = 1;
     for (int i = 1; i <= n; i++) {
@@ -15,6 +16,3 @@ int main() {
     std::cout << "sum = " << sum;
     return 0;
 }
-
-
-
