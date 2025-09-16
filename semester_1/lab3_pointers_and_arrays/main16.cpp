@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <random>
 
 const int N = 100000;
 double a[N];
@@ -8,14 +9,14 @@ int main() {
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
         std::cout << "Error";
-        std::exit(0);
+        return 1;
     }
     std::cout << "Do you want to generate random array?\n";
     std::cout << "Enter 1, if you want or 0, if not : ";
     int ch;
     if (!(std::cin >> ch) || (ch != 0 && ch != 1)) {
         std::cout << "Error";
-        std::exit(0);
+        return 1;
     }
     double pr = 1.000;
     double min_a = 1e7, ind = 0;
@@ -24,27 +25,29 @@ int main() {
         std::cout << "Enter a : ";
         if (!(std::cin >> a1)) {
             std::cout << "Error";
-            std::exit(0);
+            return 1;
         }
         std::cout << "Enter b : ";
         if (!(std::cin >> b1)) {
             std::cout << "Error";
-            std::exit(0);
+            return 1;
         }
         std::mt19937 gen(45218965);
         double x = a1 + b1;
         a1 = std::min(a1, b1);
         b1 = x - a1;
         std::uniform_real_distribution<double> dist(a1, b1);
-        std::cout << "Random array : ";
+        std::cout << "Random array : \n";
         for (int i = 0; i < n; i++) {
             double x1 = dist(gen);
             a[i] = x1;
             std::cout << a[i] << " ";
-            if (a[i] > 0)
+            if (a[i] > 0) {
                 pr *= a[i];
-            if (a[i] < min_a)
+            }
+            if (a[i] < min_a) {
                 min_a = std::min(min_a, a[i]), ind = i;
+            }
         }
     }
     else {
@@ -52,15 +55,16 @@ int main() {
         for (int i = 0; i < n; i++) {
             if (!(std::cin >> a[i])) {
                 std::cout << "Error";
-                std::exit(0);
+                return 1;
             }
-            if (a[i] > 0)
+            if (a[i] > 0) {
                 pr *= a[i];
-            if (a[i] < min_a)
+            }
+            if (a[i] < min_a) {
                 min_a = std::min(min_a, a[i]), ind = i;
+            }
         }
     }
-
     double sum = 0;
     for (int i = 0; i < ind; i++) {
         sum += a[i];
@@ -74,8 +78,9 @@ int main() {
                 fl = true;
             }
         }
-        if (!fl)
+        if (!fl) {
             break;
+        }
     }
     for (int i = 1; i < n - 1; i += 2) {
         fl = false;
@@ -85,12 +90,15 @@ int main() {
                 fl = true;
             }
         }
-        if (!fl)
+        if (!fl) {
             break;
+        }
     }
     std::cout << "sum = " << sum << ", pr = " << pr << "\nArray : ";
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) {
         std::cout << a[i] << " ";
+    }
     return 0;
 }
+
 
