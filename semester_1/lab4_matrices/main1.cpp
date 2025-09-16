@@ -2,12 +2,12 @@
 #include <random>
 
 const int N = 1000;
-double a[N][N];
+int a[N][N];
 
 int main() {
 
     int n;
-    std::cout << "Enter n (length of square) :";
+    std::cout << "Enter n (length of square) : ";
     if (!(std::cin >> n) || n < 0) {
         std::cout << "Error";
         std::exit(0);
@@ -20,7 +20,7 @@ int main() {
         std::exit(0);
     }
     if (ch == 1) {
-        double a1, b1;
+        int a1, b1;
         std::cout << "Enter a : ";
         if (!(std::cin >> a1)) {
             std::cout << "Error";
@@ -32,14 +32,14 @@ int main() {
             std::exit(0);
         }
         std::mt19937 gen(45218965);
-        double x = a1 + b1;
+        int x = a1 + b1;
         a1 = std::min(a1, b1);
         b1 = x - a1;
-        std::uniform_real_distribution<double> dist(a1, b1);
-        std::cout << "Random matrix : ";
+        std::uniform_int_distribution<int> dist(a1, b1);
+        std::cout << "Random matrix :\n";
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                double x1 = dist(gen);
+                int x1 = dist(gen);
                 a[i][j] = x1;
                 std::cout << a[i][j] << " ";
             }
@@ -58,12 +58,12 @@ int main() {
         }
     }
     for (int i = 0; i < n; i++) {
-        double rt = -1e4;
+        int rt = -1e4;
         for (int j = 0; j < n; j++) {
             rt = std::max(rt, a[j][i]);
         }
         if (rt >= 0)
-            std::cout << "in the" << i + 1 << " cologne there is positive element\n";
+            std::cout << "in the " << i + 1 << " cologne there is positive element\n";
         else
             std::cout << "max element in the " << i + 1 << " cologne is " << rt <<"\n";
     }
@@ -77,3 +77,4 @@ int main() {
     std::cout << "Answer is " << k;
     return 0;
 }
+
