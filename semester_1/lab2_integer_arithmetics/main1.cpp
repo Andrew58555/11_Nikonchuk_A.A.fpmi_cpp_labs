@@ -1,11 +1,13 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cmath>
 
 int main() {
+
     int n;
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
         std::cout << "Error!";
-        std::exit(1);
+        return 1;
     }
     int a = n;
     int min_a = 11;
@@ -27,7 +29,3 @@ int main() {
     std::cout << "result = " << res;
     return 0;
 }
-
-
-
-
