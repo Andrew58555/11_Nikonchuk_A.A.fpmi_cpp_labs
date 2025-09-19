@@ -33,6 +33,7 @@ std::string a[N], b[N];
 int main() {
 
     std::string s;
+    std::cout << "Enter sentence\n";
     getline(std::cin, s);
     for (int i = 0; i < s.size(); i++) {
         if (s[i] >= 'a' && s[i] <= 'z') {
@@ -63,6 +64,7 @@ int main() {
         b1++;
     }
     std::sort(a, a + a1, comp);
+    std::cout << "Changed sentence \n";
     int z = 0;
     while (z < a1) {
         std::cout << a[z];
@@ -72,3 +74,4 @@ int main() {
     }
     return 0;
 }
+
