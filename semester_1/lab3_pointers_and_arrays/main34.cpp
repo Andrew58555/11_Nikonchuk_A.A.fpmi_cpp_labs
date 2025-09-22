@@ -3,9 +3,49 @@
 
 const int N = 100000;
 int a[N];
+int ind;
+int n;
 
+void random4ik() {
+    int a1, b1;
+    std::cout << "Enter a : ";
+    if (!(std::cin >> a1)) {
+        std::cout << "Error";
+        std::exit(1);
+    }
+    std::cout << "Enter b : ";
+    if (!(std::cin >> b1)) {
+        std::cout << "Error";
+        std::exit(1);
+    }
+    std::mt19937 gen(45218965);
+    int x = a1 + b1;
+    a1 = std::min(a1, b1);
+    b1 = x - a1;
+    std::uniform_int_distribution<int> dist(a1, b1);
+    std::cout << "Random array : ";
+    for (int i = 0; i < n; i++) {
+        int x1 = dist(gen);
+        a[i] = x1;
+        if (a[i] > 0) {
+            ind = i;
+        }
+        std::cout << a[i] << " ";
+    }
+}
+void input() {
+    std::cout << "Enter n elements of array : ";
+    for (int i = 0; i < n; i++) {
+        if (!(std::cin >> a[i])) {
+            std::cout << "Error";
+            std::exit(1);
+        }
+        if (a[i] > 0) {
+            ind = i;
+        }
+    }
+}
 int main() {
-    int n;
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
         std::cout << "Error";
@@ -18,45 +58,11 @@ int main() {
         std::cout << "Error";
         return 1;
     }
-    int ind = 0;
     if (ch == 1) {
-        int a1, b1;
-        std::cout << "Enter a : ";
-        if (!(std::cin >> a1)) {
-            std::cout << "Error";
-            return 1;
-        }
-        std::cout << "Enter b : ";
-        if (!(std::cin >> b1)) {
-            std::cout << "Error";
-            return 1;
-        }
-        std::mt19937 gen(45218965);
-        int x = a1 + b1;
-        a1 = std::min(a1, b1);
-        b1 = x - a1;
-        std::uniform_int_distribution<int> dist(a1, b1);
-        std::cout << "Random array : ";
-        for (int i = 0; i < n; i++) {
-            int x1 = dist(gen);
-            a[i] = x1;
-            if (a[i] > 0) {
-                ind = i;
-            }
-            std::cout << a[i] << " ";
-        }
+        random4ik();
     }
     else {
-        std::cout << "Enter n elements of array : ";
-        for (int i = 0; i < n; i++) {
-            if (!(std::cin >> a[i])) {
-                std::cout << "Error";
-                return 1;
-            }
-            if (a[i] > 0) {
-                ind = i;
-            }
-        }
+        input();
     }
     int sum = 0;
     for (int i = 0; i < ind; i++) {
@@ -97,7 +103,7 @@ int main() {
     int h = 0;
     std::cout << "Update array : ";
     for (int i = 0; i < n; i++) {
-        if (abs(a[i]) < A or abs(a[i]) > B) {
+        if (abs(a[i]) < A || abs(a[i]) > B) {
             std::cout << a[i] << " ";
         }
         else {
@@ -109,4 +115,3 @@ int main() {
     }
     return 0;
 }
-
