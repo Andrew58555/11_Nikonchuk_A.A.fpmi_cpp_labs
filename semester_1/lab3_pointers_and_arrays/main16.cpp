@@ -3,9 +3,58 @@
 
 const int N = 100000;
 double a[N];
+int n;
+double pr = 1.000;
+double min_a = 1e7, ind = 0;
+
+void random4ik() {
+    double a1, b1;
+    std::cout << "Enter a : ";
+    if (!(std::cin >> a1)) {
+        std::cout << "Error";
+        std::exit(0);
+    }
+    std::cout << "Enter b : ";
+    if (!(std::cin >> b1)) {
+        std::cout << "Error";
+        std::exit(0);
+    }
+    std::mt19937 gen(45218965);
+    double x = a1 + b1;
+    a1 = std::min(a1, b1);
+    b1 = x - a1;
+    std::uniform_real_distribution<double> dist(a1, b1);
+    std::cout << "Random array : \n";
+    for (int i = 0; i < n; i++) {
+        double x1 = dist(gen);
+        a[i] = x1;
+        std::cout << a[i] << " ";
+        if (a[i] > 0) {
+            pr *= a[i];
+        }
+        if (a[i] < min_a) {
+            min_a = std::min(min_a, a[i]), ind = i;
+        }
+    }
+}
+
+void input() {
+    std::cout << "Enter n elements of array : ";
+    for (int i = 0; i < n; i++) {
+        if (!(std::cin >> a[i])) {
+            std::cout << "Error";
+            std::exit(0);
+        }
+        if (a[i] > 0) {
+            pr *= a[i];
+        }
+        if (a[i] < min_a) {
+            min_a = std::min(min_a, a[i]), ind = i;
+        }
+    }
+}
 
 int main() {
-    int n;
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
         std::cout << "Error";
@@ -18,52 +67,11 @@ int main() {
         std::cout << "Error";
         return 1;
     }
-    double pr = 1.000;
-    double min_a = 1e7, ind = 0;
     if (ch == 1) {
-        double a1, b1;
-        std::cout << "Enter a : ";
-        if (!(std::cin >> a1)) {
-            std::cout << "Error";
-            return 1;
-        }
-        std::cout << "Enter b : ";
-        if (!(std::cin >> b1)) {
-            std::cout << "Error";
-            return 1;
-        }
-        std::mt19937 gen(45218965);
-        double x = a1 + b1;
-        a1 = std::min(a1, b1);
-        b1 = x - a1;
-        std::uniform_real_distribution<double> dist(a1, b1);
-        std::cout << "Random array : \n";
-        for (int i = 0; i < n; i++) {
-            double x1 = dist(gen);
-            a[i] = x1;
-            std::cout << a[i] << " ";
-            if (a[i] > 0) {
-                pr *= a[i];
-            }
-            if (a[i] < min_a) {
-                min_a = std::min(min_a, a[i]), ind = i;
-            }
-        }
+        random4ik();
     }
     else {
-        std::cout << "Enter n elements of array : ";
-        for (int i = 0; i < n; i++) {
-            if (!(std::cin >> a[i])) {
-                std::cout << "Error";
-                return 1;
-            }
-            if (a[i] > 0) {
-                pr *= a[i];
-            }
-            if (a[i] < min_a) {
-                min_a = std::min(min_a, a[i]), ind = i;
-            }
-        }
+        input();
     }
     double sum = 0;
     for (int i = 0; i < ind; i++) {
@@ -100,5 +108,3 @@ int main() {
     }
     return 0;
 }
-
-
