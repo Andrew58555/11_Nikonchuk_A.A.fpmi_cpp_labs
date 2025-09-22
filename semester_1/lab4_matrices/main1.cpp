@@ -32,6 +32,7 @@ void rnd() {
         std::cout << "\n";
     }
 }
+
 void enterMatrix() {
     std::cout << "Enter matrix :\n";
     for (int i = 0; i < n; i++) {
@@ -43,6 +44,7 @@ void enterMatrix() {
         }
     }
 }
+
 int main() {
 
     std::cout << "Enter n (length of square) : ";
@@ -83,4 +85,3 @@ int main() {
     std::cout << "Answer is " << ans;
     return 0;
 }
-
