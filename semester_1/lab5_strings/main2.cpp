@@ -2,6 +2,9 @@
 #include <string>
 #include <algorithm>
 
+const int N = 1000;
+std::string a[N], b[N];
+
 bool letter(char l) {
     if (l >= 'a' && l <= 'z' || l >= 'A' && l <= 'Z') {
         return true;
@@ -27,9 +30,6 @@ bool comp(std::string a, std::string b) {
     return koll(a) < koll(b);
 }
 
-const int N = 1000;
-std::string a[N], b[N];
-
 int main() {
 
     std::string s;
@@ -46,7 +46,6 @@ int main() {
     int a1 = 0, b1 = 0;
     int ind = 0;
     while (ind < s.size()) {
-
         std::string cur1;
         while (letter(s[ind]) && ind < s.size()) {
             cur1 += s[ind];
@@ -54,7 +53,7 @@ int main() {
         }
         a[a1] = cur1;
         a1++;
-
+    
         std::string cur2;
         while (!letter(s[ind]) && ind < s.size()) {
             cur2 += s[ind];
@@ -74,4 +73,3 @@ int main() {
     }
     return 0;
 }
-
