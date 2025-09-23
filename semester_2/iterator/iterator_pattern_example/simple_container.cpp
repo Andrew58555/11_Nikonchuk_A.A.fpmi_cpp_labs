@@ -6,7 +6,7 @@ Container::Container(): size_(0), arr_(nullptr) {}
 
 Container::Container(size_t cap): size_(0), arr_(new int[cap]) {}
 
-void Container:: Push(int value) {
+void Container::Push(int value) {
     arr_[size_] = value;
     ++size_;
 }

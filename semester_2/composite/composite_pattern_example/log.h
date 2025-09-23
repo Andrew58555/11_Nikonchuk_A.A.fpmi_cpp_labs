@@ -7,7 +7,7 @@
 #include <iostream>
 
 enum class LogType {
-    OAK, BIRCH, SPRUCE, JUNGLE, ACACIA
+    OAK = 0, BIRCH, SPRUCE, JUNGLE, ACACIA
 };
 
 inline std::string LogTypeToString(LogType type) {
@@ -40,7 +40,7 @@ public:
         if (info_->is_selected_) {
             std::cout << *info_;
         } else {
-            std::cout << "Item " << info_->name_ << " is unselected\n";
+            std::cout << "Item \"" << info_->name_ << "\" is unselected\n";
         }
     }
 
@@ -56,6 +56,4 @@ public:
         }
     }
 };
-
-
 

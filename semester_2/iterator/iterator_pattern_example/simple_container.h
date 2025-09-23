@@ -6,7 +6,7 @@
 #include "iterator.h"
 // we don't need to include "container_iterator.h" here
 // because we have a base class Iterator<T>
-// (we won't use ContainreIterator class here!)
+// (we won't use ContainerIterator class here!)
 // so we will include "container_iterator.h"
 // directly into "container_iterator.cpp" file
 // (see "container_iterator.cpp" for more informarion)
@@ -37,7 +37,7 @@ public:
     ~Container();
 
     // method for creating an iterator
-    // this method MUST be in container!!!
+    // this method MUST be in a container!!!
     Iterator<int>* CreateIterator() const;
 };
 

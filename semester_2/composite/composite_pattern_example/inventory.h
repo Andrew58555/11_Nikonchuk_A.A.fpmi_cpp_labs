@@ -5,27 +5,28 @@
 
 #include <unordered_map>
 #include <array>
+#include <random>
 
 
 using CellNumber = uint32_t;
-const int MAX_CELL_NUMBER = 36;
+const int MAX_CELLS_NUMBER = 36;
+
 
 // class Composite
 class Inventory: public Item {
 private:
     std::unordered_map<CellNumber, ItemPtr> inventory_;
-    std::array<bool, MAX_CELL_NUMBER> cells_;
+    std::array<bool, MAX_CELLS_NUMBER> cells_;
 public:
     Inventory(): Item(nullptr), cells_() {
-    }    
+    } 
 	
     void add_item(ItemPtr&& item) {
-        if (inventory_.size() == MAX_CELL_NUMBER) {
+        if (inventory_.size() == MAX_CELLS_NUMBER) {
             std::cout << "Inventory is full\n";
             return;
         }
-        for(int i = 0; i < MAX_CELL_NUMBER; ++i) {
-            //std::cout << cells_[i];
+        for(int i = 0; i < MAX_CELLS_NUMBER; ++i) {
             if (!cells_[i]) {
                 inventory_.emplace(i, std::move(item));
                 cells_[i] = true;
@@ -48,7 +49,7 @@ public:
         }
     }
 
-    // print information about ALL of items
+    // print information about ALL items
     // in composite
     void print_info() const override {
         std::cout << "<--------------------->\n";
@@ -56,7 +57,7 @@ public:
             std::cout << "Cell: " << cell << '\n';
             item->print_info();
         }
-        std::cout << "<--------------------->\n";
+        std::cout << "<--------------------->" << std::endl;
     }
 
     // use ALL items in composite
@@ -75,5 +76,4 @@ public:
 
 
 using InventoryPtr = std::unique_ptr<Inventory>;
-
 

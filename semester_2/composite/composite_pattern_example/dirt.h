@@ -15,7 +15,7 @@ public:
         if (info_->is_selected_) {
             std::cout << *info_;
         } else {
-            std::cout << "Item " << info_->name_ << " is unselected\n";
+            std::cout << "Item \"" << info_->name_ << "\" is unselected\n";
         }
     }
 
@@ -26,3 +26,4 @@ public:
     }
 
 };
+

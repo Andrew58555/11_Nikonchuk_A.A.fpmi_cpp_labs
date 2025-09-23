@@ -22,24 +22,22 @@ struct ItemInfo {
 
 
 inline std::ostream& operator<<(std::ostream& out, const ItemInfo& info) {
-    
+
+    std::string line_prefix = "  ";
     out << "Item information:\n";
     out << "{\n";
-    out << "\tName: " << info.name_ << '\n';
-    out << "\tAmount: " << info.amount_ << '\n';
+    out << line_prefix << "Name: " << info.name_ << '\n';
+    out << line_prefix << "Amount: " << info.amount_ << '\n';
     if (info.durability_.has_value()) {
-        out << "\tDurability: " << info.durability_.value() << '\n';
+        out << line_prefix << "Durability: " << info.durability_.value() << '\n';
     }
-    out << (info.is_stackable_ ? "\tStackable" : "\tNot stackable") << '\n';
-    out << (info.is_selected_ ? "\tSelected" : "\tNot selected") << '\n';
-    out << "}\n";
+    out << line_prefix << (info.is_stackable_ ? "Stackable" : "Not stackable") << '\n';
+    out << line_prefix << (info.is_selected_ ? "Selected" : "Not selected") << '\n';
+    out << "}" << std::endl;
     
     return out;
 }
 
 
 using ItemInfoPtr = std::unique_ptr<ItemInfo>;
-
-
-
 
