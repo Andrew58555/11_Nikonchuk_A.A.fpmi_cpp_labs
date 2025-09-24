@@ -2,9 +2,10 @@
 #include <random>
 
 const int N = 100000;
-int a[N];
+int *a = new int(N);
 int ind;
 int n;
+int max_a = 1;
 
 void random4ik() {
     int a1, b1;
@@ -45,6 +46,22 @@ void input() {
         }
     }
 }
+void sortik() {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j + i < n; j++) {
+            bool flag = true;
+            for (int k = i; k <= i + j; k++) {
+                if (a[k] != a[i + j - k + i]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag && max_a < j + 1) {
+                max_a = j + 1, ind = i;
+            }
+        }
+    }
+}
 int main() {
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
@@ -69,26 +86,12 @@ int main() {
         sum += a[i];
     }
     std::cout << "sum = " << sum << "\n";
-    int max_a = 1;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j + i < n; j++) {
-            bool flag = true;
-            for (int k = i; k <= i + j; k++) {
-                if (a[k] != a[i + j - k + i]) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag && max_a < j + 1) {
-                max_a = j + 1, ind = i;
-            }
-        }
-    }
+    sortik();
     std::cout << "max size of palindrome is " << max_a << "\npalindrome : ";
     for (int i = ind; i < ind + max_a; i++) {
         std::cout << a[i] << " ";
     }
-    std::cout << "\n";
+    std::cout << "\nEntering range...\n";
     int A, B;
     std::cout << "Enter a : ";
     if (!(std::cin >> A)) {
@@ -113,5 +116,7 @@ int main() {
     for (int i = 0; i < h; i++) {
         std::cout << "0 ";
     }
+    delete[] a;
+    a = nullptr;
     return 0;
 }
