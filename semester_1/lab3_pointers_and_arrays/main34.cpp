@@ -46,7 +46,7 @@ void input() {
         }
     }
 }
-void sortik() {
+void SearchForPalindrom() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j + i < n; j++) {
             bool flag = true;
@@ -86,7 +86,7 @@ int main() {
         sum += a[i];
     }
     std::cout << "sum = " << sum << "\n";
-    sortik();
+    SearchForPalindrom();
     std::cout << "max size of palindrome is " << max_a << "\npalindrome : ";
     for (int i = ind; i < ind + max_a; i++) {
         std::cout << a[i] << " ";
