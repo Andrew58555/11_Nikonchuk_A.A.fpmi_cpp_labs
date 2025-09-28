@@ -2,7 +2,7 @@
 #include <random>
 
 const int N = 100000;
-int *a = new int(N);
+int *a = new int [N];
 int ind;
 int n;
 int max_a = 1;
@@ -34,8 +34,9 @@ void random4ik() {
         std::cout << a[i] << " ";
     }
 }
+
 void input() {
-    std::cout << "Enter n elements of array : ";
+    std::cout << "Enter " << n << " elements of array : ";
     for (int i = 0; i < n; i++) {
         if (!(std::cin >> a[i])) {
             std::cout << "Error";
@@ -46,6 +47,7 @@ void input() {
         }
     }
 }
+
 void SearchForPalindrom() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j + i < n; j++) {
@@ -62,6 +64,7 @@ void SearchForPalindrom() {
         }
     }
 }
+
 int main() {
     std::cout << "Enter n : ";
     if (!(std::cin >> n) || n < 1) {
@@ -103,18 +106,19 @@ int main() {
         std::cout << "Error";
         return 1;
     }
-    int h = 0;
-    std::cout << "Update array : ";
-    for (int i = 0; i < n; i++) {
+
+    int write = 0;
+    for (int i = 0; i < n; ++i) {
         if (abs(a[i]) < A || abs(a[i]) > B) {
-            std::cout << a[i] << " ";
-        }
-        else {
-            h++;
+            a[write++] = a[i];
         }
     }
-    for (int i = 0; i < h; i++) {
-        std::cout << "0 ";
+    for (int i = write; i < n; ++i) {
+        a[i] = 0;
+    }
+    std::cout << "Update array : ";
+    for (int i = 0; i < n; i++) {
+        std::cout << a[i] << " ";
     }
     delete[] a;
     a = nullptr;
