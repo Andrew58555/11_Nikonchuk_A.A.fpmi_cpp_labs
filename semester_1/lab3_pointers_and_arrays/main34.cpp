@@ -10,11 +10,15 @@ void random4ik(int a[]) {
     std::cout << "Enter a : ";
     if (!(std::cin >> a1)) {
         std::cout << "Error";
+        delete[] a;
+        a = nullptr;
         std::exit(1);
     }
     std::cout << "Enter b : ";
     if (!(std::cin >> b1)) {
         std::cout << "Error";
+        delete[] a;
+        a = nullptr;
         std::exit(1);
     }
     std::mt19937 gen(45218965);
@@ -38,6 +42,8 @@ void input(int a[]) {
     for (int i = 0; i < n; i++) {
         if (!(std::cin >> a[i])) {
             std::cout << "Error";
+            delete[] a;
+            a = nullptr;
             std::exit(1);
         }
         if (a[i] > 0) {
@@ -75,6 +81,8 @@ int main() {
     int ch;
     if (!(std::cin >> ch) || (ch != 0 && ch != 1)) {
         std::cout << "Error";
+        delete[] a;
+        a = nullptr;
         return 1;
     }
     if (ch == 1) {
@@ -98,11 +106,15 @@ int main() {
     std::cout << "Enter a : ";
     if (!(std::cin >> A) || A < 0) {
         std::cout << "Error";
+        delete[] a;
+        a = nullptr;
         return 1;
     }
     std::cout << "Enter b : ";
     if (!(std::cin >> B) || B < A || B < 0) {
         std::cout << "Error";
+        delete[] a;
+        a = nullptr;
         return 1;
     }
 
