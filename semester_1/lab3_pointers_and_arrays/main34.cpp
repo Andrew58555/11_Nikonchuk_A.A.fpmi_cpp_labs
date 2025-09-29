@@ -1,13 +1,11 @@
 #include <iostream>
 #include <random>
 
-const int N = 100000;
-int *a = new int [N];
 int ind;
 int n;
 int max_a = 1;
 
-void random4ik() {
+void random4ik(int a[]) {
     int a1, b1;
     std::cout << "Enter a : ";
     if (!(std::cin >> a1)) {
@@ -35,7 +33,7 @@ void random4ik() {
     }
 }
 
-void input() {
+void input(int a[]) {
     std::cout << "Enter " << n << " elements of array : ";
     for (int i = 0; i < n; i++) {
         if (!(std::cin >> a[i])) {
@@ -48,7 +46,7 @@ void input() {
     }
 }
 
-void SearchForPalindrom() {
+void SearchForPalindrom(int a[]) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j + i < n; j++) {
             bool flag = true;
@@ -71,6 +69,7 @@ int main() {
         std::cout << "Error";
         return 1;
     }
+    int *a = new int [n];
     std::cout << "Do you want to generate random array?\n";
     std::cout << "Enter 1, if you want or 0, if not : ";
     int ch;
@@ -79,17 +78,17 @@ int main() {
         return 1;
     }
     if (ch == 1) {
-        random4ik();
+        random4ik(a);
     }
     else {
-        input();
+        input(a);
     }
     int sum = 0;
     for (int i = 0; i < ind; i++) {
         sum += a[i];
     }
     std::cout << "sum = " << sum << "\n";
-    SearchForPalindrom();
+    SearchForPalindrom(a);
     std::cout << "max size of palindrome is " << max_a << "\npalindrome : ";
     for (int i = ind; i < ind + max_a; i++) {
         std::cout << a[i] << " ";
@@ -97,12 +96,12 @@ int main() {
     std::cout << "\nEntering range...\n";
     int A, B;
     std::cout << "Enter a : ";
-    if (!(std::cin >> A)) {
+    if (!(std::cin >> A) || A < 0) {
         std::cout << "Error";
         return 1;
     }
     std::cout << "Enter b : ";
-    if (!(std::cin >> B) || B < A) {
+    if (!(std::cin >> B) || B < A || B < 0) {
         std::cout << "Error";
         return 1;
     }
