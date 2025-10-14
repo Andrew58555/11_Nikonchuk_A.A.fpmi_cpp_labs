@@ -1,11 +1,7 @@
 #include <iostream>
 #include <random>
 
-const int N = 1000;
-int a[N][N];
-int n;
-
-void rnd() {
+void rnd(int** arr, int size) {
     int a1, b1;
     std::cout << "Enter a : ";
     if (!(std::cin >> a1)) {
@@ -23,21 +19,21 @@ void rnd() {
     b1 = x - a1;
     std::uniform_int_distribution<int> dist(a1, b1);
     std::cout << "Random matrix :\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             int x1 = dist(gen);
-            a[i][j] = x1;
-            std::cout << a[i][j] << " ";
+            arr[i][j] = x1;
+            std::cout << arr[i][j] << " ";
         }
         std::cout << "\n";
     }
 }
 
-void enterMatrix() {
+void enterMatrix(int** arr, int size) {
     std::cout << "Enter matrix :\n";
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (!(std::cin >> a[i][j])) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (!(std::cin >> arr[i][j])) {
                 std::cout << "Error";
                 std::exit(0);
             }
@@ -46,29 +42,33 @@ void enterMatrix() {
 }
 
 int main() {
-
+    int n;
     std::cout << "Enter n (length of square) : ";
     if (!(std::cin >> n) || n < 0) {
         std::cout << "Error";
         return 0;
     }
+    int** arr = new int *[n];
+    for (int i = 0; i < n; ++i) {
+        arr[i] = new int[n];
+    }
     std::cout << "Do you want to generate random matrix?\n";
     std::cout << "Enter 1, if you want or 0, if not : ";
-    int ch;
-    if (!(std::cin >> ch) || (ch != 0 && ch != 1)) {
+    int digit;
+    if (!(std::cin >> digit) || (digit != 0 && digit != 1)) {
         std::cout << "Error";
         return 0;
     }
-    if (ch == 1) {
-        rnd();
+    if (digit == 1) {
+        rnd(arr, n);
     }
     else {
-        enterMatrix();
+        enterMatrix(arr, n);
     }
     for (int i = 0; i < n; i++) {
         int cur = -1e4;
         for (int j = 0; j < n; j++) {
-            cur = std::max(cur, a[j][i]);
+            cur = std::max(cur, arr[j][i]);
         }
         if (cur >= 0)
             std::cout << "in the " << i + 1 << " cologne there is positive element\n";
@@ -78,10 +78,16 @@ int main() {
     int ans = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if (i + j + 1 >= n && a[i][j] < 0)
+            if (i + j + 1 >= n && arr[i][j] < 0)
                 ans++;
         }
     }
     std::cout << "Answer is " << ans;
+    for (int i = 0; i < n; i++) {
+        delete[] arr[i];
+        arr[i] = nullptr;
+    }
+    delete[] arr;
+    arr = nullptr;
     return 0;
 }
