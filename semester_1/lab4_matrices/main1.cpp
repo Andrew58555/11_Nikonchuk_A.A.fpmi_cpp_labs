@@ -1,16 +1,27 @@
 #include <iostream>
 #include <random>
 
+void deleteMatrix(int** arr, int size) {
+    for (int i = 0; i < size; i++) {
+        delete[] arr[i];
+        arr[i] = nullptr;
+    }
+    delete[] arr;
+    arr = nullptr;
+}
+
 void rnd(int** arr, int size) {
     int a1, b1;
     std::cout << "Enter a : ";
     if (!(std::cin >> a1)) {
         std::cout << "Error";
+        deleteMatrix(arr, size);
         std::exit(0);
     }
     std::cout << "Enter b : ";
     if (!(std::cin >> b1)) {
         std::cout << "Error";
+        deleteMatrix(arr, size);
         std::exit(0);
     }
     std::mt19937 gen(45218965);
@@ -35,6 +46,7 @@ void enterMatrix(int** arr, int size) {
         for (int j = 0; j < size; j++) {
             if (!(std::cin >> arr[i][j])) {
                 std::cout << "Error";
+                deleteMatrix(arr, size);
                 std::exit(0);
             }
         }
@@ -57,6 +69,7 @@ int main() {
     int digit;
     if (!(std::cin >> digit) || (digit != 0 && digit != 1)) {
         std::cout << "Error";
+        deleteMatrix(arr, n);
         return 0;
     }
     if (digit == 1) {
@@ -83,11 +96,6 @@ int main() {
         }
     }
     std::cout << "Answer is " << ans;
-    for (int i = 0; i < n; i++) {
-        delete[] arr[i];
-        arr[i] = nullptr;
-    }
-    delete[] arr;
-    arr = nullptr;
+    deleteMatrix(arr, n);
     return 0;
 }
