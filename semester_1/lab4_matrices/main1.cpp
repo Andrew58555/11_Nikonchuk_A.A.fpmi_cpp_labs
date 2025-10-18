@@ -79,20 +79,23 @@ int main() {
         enterMatrix(arr, n);
     }
     for (int i = 0; i < n; i++) {
-        int cur = -1e4;
+        int max_elem = -1e4;
         for (int j = 0; j < n; j++) {
-            cur = std::max(cur, arr[j][i]);
+            max_elem = std::max(max_elem, arr[j][i]);
         }
-        if (cur >= 0)
+        if (max_elem >= 0) {
             std::cout << "in the " << i + 1 << " cologne there is positive element\n";
-        else
-            std::cout << "max element in the " << i + 1 << " cologne is " << cur <<"\n";
+        }
+        else {
+            std::cout << "max element in the " << i + 1 << " cologne is " << max_elem <<"\n";
+        }
     }
     int ans = 0;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            if (i + j + 1 >= n && arr[i][j] < 0)
+            if (i + j + 1 >= n && arr[i][j] < 0) {
                 ans++;
+            }
         }
     }
     std::cout << "Answer is " << ans;
