@@ -25,13 +25,13 @@ int koll(std::string s) {
 }
 
 bool comp(std::string a, std::string b) {
-    if (koll(a) == koll(b))
+    if (koll(a) == koll(b)) {
         return a < b;
+    }
     return koll(a) < koll(b);
 }
 
 int main() {
-
     std::string s;
     std::cout << "Enter sentence\n";
     getline(std::cin, s);
@@ -53,7 +53,7 @@ int main() {
         }
         a[a1] = cur1;
         a1++;
-    
+
         std::string cur2;
         while (!letter(s[ind]) && ind < s.size()) {
             cur2 += s[ind];
@@ -64,12 +64,13 @@ int main() {
     }
     std::sort(a, a + a1, comp);
     std::cout << "Changed sentence \n";
-    int z = 0;
-    while (z < a1) {
-        std::cout << a[z];
-        if (z < b1)
-            std::cout << b[z];
-        z++;
+    int index = 0;
+    while (index < a1) {
+        std::cout << a[index];
+        if (index < b1) {
+            std::cout << b[index];
+        }
+        index++;
     }
     return 0;
 }
