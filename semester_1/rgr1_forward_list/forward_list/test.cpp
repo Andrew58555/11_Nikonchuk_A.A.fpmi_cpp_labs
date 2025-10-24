@@ -21,6 +21,7 @@ void CheckLists(const ForwardList& actual, const std::forward_list<int32_t>& exp
 
 
 TEST_CASE("Fool", "[forward_list]") {
+    INFO("Don't use std::forward_list or std::list, cheater!")
     STATIC_REQUIRE_FALSE(std::is_same_v<std::forward_list<int32_t>, ForwardList>);
     STATIC_REQUIRE_FALSE(std::is_base_of_v<std::forward_list<int32_t>, ForwardList>);
     STATIC_REQUIRE_FALSE(std::is_same_v<std::list<int32_t>, ForwardList>);
@@ -29,7 +30,7 @@ TEST_CASE("Fool", "[forward_list]") {
 
 
 TEST_CASE("ForwardList has ctors", "[forward_list]") {
-    REQUIRE(std::is_default_constructible_v<ForwardList>);
+    STATIC_REQUIRE(std::is_default_constructible_v<ForwardList>);
 
     SECTION("Default ctor") {
         ForwardList a;
