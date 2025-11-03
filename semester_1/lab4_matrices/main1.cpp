@@ -1,5 +1,7 @@
 #include <iostream>
 #include <random>
+#include <stdexcept>
+#include <limits>
 
 void deleteMatrix(int** arr, int size) {
     for (int i = 0; i < size; i++) {
@@ -10,95 +12,125 @@ void deleteMatrix(int** arr, int size) {
     arr = nullptr;
 }
 
-void rnd(int** arr, int size) {
-    int a1, b1;
-    std::cout << "Enter a : ";
-    if (!(std::cin >> a1)) {
-        std::cout << "Error";
-        deleteMatrix(arr, size);
-        std::exit(0);
+int** createMatrix(int size) {
+    int** arr = new int*[size];
+    for (int i = 0; i < size; ++i) {
+        arr[i] = new int[size];
     }
-    std::cout << "Enter b : ";
-    if (!(std::cin >> b1)) {
-        std::cout << "Error";
-        deleteMatrix(arr, size);
-        std::exit(0);
+    return arr;
+}
+
+int inputInt(const std::string& prompt) {
+    int value;
+    std::cout << prompt;
+    if (!(std::cin >> value)) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw std::runtime_error("Invalid input: expected integer");
     }
-    std::mt19937 gen(45218965);
-    int x = a1 + b1;
-    a1 = std::min(a1, b1);
-    b1 = x - a1;
-    std::uniform_int_distribution<int> dist(a1, b1);
-    std::cout << "Random matrix :\n";
+    if (std::cin.peek() != '\n' && std::cin.peek() != ' ') {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw std::runtime_error("Invalid input: expected integer, got floating point or other characters");
+    }
+    return value;
+}
+
+int inputIntWithValidation(const std::string& prompt, bool (*validator)(int) = nullptr) {
+    int value = inputInt(prompt);
+    if (validator && !validator(value)) {
+        throw std::runtime_error("Input value does not satisfy the condition");
+    }
+    return value;
+}
+
+bool isPositive(int n) { return n > 0; }
+bool isBinary(int n) { return n == 0 || n == 1; }
+
+void fillRandomMatrix(int** arr, int size, std::mt19937& gen) {
+    int a = inputIntWithValidation("Enter a: ");
+    int b = inputIntWithValidation("Enter b: ");
+    std::uniform_int_distribution<> dist(std::min(a, b), std::max(a, b));
+    std::cout << "Random matrix:\n";
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            int x1 = dist(gen);
-            arr[i][j] = x1;
+            arr[i][j] = dist(gen);
             std::cout << arr[i][j] << " ";
         }
         std::cout << "\n";
     }
 }
 
-void enterMatrix(int** arr, int size) {
-    std::cout << "Enter matrix :\n";
+void fillManualMatrix(int** arr, int size) {
+    std::cout << "Enter matrix:\n";
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            if (!(std::cin >> arr[i][j])) {
-                std::cout << "Error";
-                deleteMatrix(arr, size);
-                std::exit(0);
-            }
+            arr[i][j] = inputInt("");
         }
     }
 }
 
-int main() {
-    int n;
-    std::cout << "Enter n (length of square) : ";
-    if (!(std::cin >> n) || n < 0) {
-        std::cout << "Error";
-        return 0;
-    }
-    int** arr = new int *[n];
-    for (int i = 0; i < n; ++i) {
-        arr[i] = new int[n];
-    }
-    std::cout << "Do you want to generate random matrix?\n";
-    std::cout << "Enter 1, if you want or 0, if not : ";
-    int digit;
-    if (!(std::cin >> digit) || (digit != 0 && digit != 1)) {
-        std::cout << "Error";
-        deleteMatrix(arr, n);
-        return 0;
-    }
-    if (digit == 1) {
-        rnd(arr, n);
-    }
-    else {
-        enterMatrix(arr, n);
-    }
-    for (int i = 0; i < n; i++) {
-        int max_elem = -1e4;
-        for (int j = 0; j < n; j++) {
+void processColumns(int** arr, int size) {
+    for (int i = 0; i < size; i++) {
+        int max_elem = -1e9;
+        bool hasPositive = false;
+        for (int j = 0; j < size; j++) {
             max_elem = std::max(max_elem, arr[j][i]);
+            if (arr[j][i] > 0) hasPositive = true;
         }
-        if (max_elem >= 0) {
-            std::cout << "in the " << i + 1 << " cologne there is positive element\n";
-        }
-        else {
-            std::cout << "max element in the " << i + 1 << " cologne is " << max_elem <<"\n";
+        if (hasPositive) {
+            std::cout << "In column " << i + 1 << " there is positive element\n";
+        } else {
+            std::cout << "Max element in column " << i + 1 << " is " << max_elem << "\n";
         }
     }
-    int ans = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i + j + 1 >= n && arr[i][j] < 0) {
-                ans++;
+}
+
+int countNegativeInTriangle(int** arr, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i + j + 1 >= size && arr[i][j] < 0) {
+                count++;
             }
         }
     }
-    std::cout << "Answer is " << ans;
-    deleteMatrix(arr, n);
+    return count;
+}
+
+void fillMatrix(int** arr, int size, std::mt19937& gen) {
+    int choice = inputIntWithValidation(
+        "Do you want to generate random matrix?\nEnter 1 for yes or 0 for no: ",
+        isBinary
+    );
+    if (choice == 1) {
+        fillRandomMatrix(arr, size, gen);
+    } else {
+        fillManualMatrix(arr, size);
+    }
+}
+
+int main() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    int** arr = nullptr;
+    try {
+        int n = inputIntWithValidation(
+            "Enter n (size of square matrix): ",
+            isPositive
+        );
+        arr = createMatrix(n);
+        fillMatrix(arr, n, gen);
+        processColumns(arr, n);
+        int negativeCount = countNegativeInTriangle(arr, n);
+        std::cout << "Number of negative elements in lower right triangle: " << negativeCount << "\n";
+        deleteMatrix(arr, n);
+    } catch (const std::exception& e) {
+        if (arr != nullptr) {
+            deleteMatrix(arr, 0);
+        }
+        std::cout << "Error: " << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
