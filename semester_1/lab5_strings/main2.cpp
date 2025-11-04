@@ -1,76 +1,97 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
+#include <cctype>
 
-const int N = 1000;
-std::string a[N], b[N];
-
-bool letter(char l) {
-    if (l >= 'a' && l <= 'z' || l >= 'A' && l <= 'Z') {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-int koll(std::string s) {
-    int k = 0;
-    for (auto i : s) {
-        if (i >= 'A' && i <= 'Z') {
-            k++;
+std::string swapCase(const std::string& str) {
+    std::string result = str;
+    for (char& c : result) {
+        if (std::isupper(c)) {
+            c = std::tolower(c);
+        } else if (std::islower(c)) {
+            c = std::toupper(c);
         }
     }
-    return k;
+    return result;
 }
 
-bool comp(std::string a, std::string b) {
-    if (koll(a) == koll(b)) {
+int countUppercase(const std::string& word) {
+    int count = 0;
+    for (char c : word) {
+        if (std::isupper(c)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+bool compareWords(const std::string& a, const std::string& b) {
+    int upperA = countUppercase(a);
+    int upperB = countUppercase(b);
+    if (upperA == upperB) {
         return a < b;
     }
-    return koll(a) < koll(b);
+    return upperA < upperB;
 }
 
-int main() {
-    std::string s;
-    std::cout << "Enter sentence\n";
-    getline(std::cin, s);
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] >= 'a' && s[i] <= 'z') {
-            s[i] -= 32;
+void splitString(const std::string& str, std::vector<std::string>& words, std::vector<std::string>& separators) {
+    words.clear();
+    separators.clear();
+    size_t i = 0;
+    while (i < str.length()) {
+        if (std::isalpha(str[i])) {
+            std::string word;
+            while (i < str.length() && std::isalpha(str[i])) {
+                word += str[i];
+                i++;
+            }
+            words.push_back(word);
         }
-        else if (s[i] >= 'A' && s[i] <= 'Z') {
-            s[i] += 32;
+        else {
+            std::string separator;
+            while (i < str.length() && !std::isalpha(str[i])) {
+                separator += str[i];
+                i++;
+            }
+            separators.push_back(separator);
         }
     }
-    int a1 = 0, b1 = 0;
-    int ind = 0;
-    while (ind < s.size()) {
-        std::string cur1;
-        while (letter(s[ind]) && ind < s.size()) {
-            cur1 += s[ind];
-            ind++;
-        }
-        a[a1] = cur1;
-        a1++;
+}
 
-        std::string cur2;
-        while (!letter(s[ind]) && ind < s.size()) {
-            cur2 += s[ind];
-            ind++;
+std::string assembleString(const std::vector<std::string>& words, const std::vector<std::string>& separators) {
+    std::string result;
+    size_t totalParts = words.size() + separators.size();
+    for (size_t i = 0; i < totalParts; i++) {
+        if (i % 2 == 0) {
+            if (i / 2 < words.size()) {
+                result += words[i / 2];
+            }
+        } else {
+            if (i / 2 < separators.size()) {
+                result += separators[i / 2];
+            }
         }
-        b[b1] = cur2;
-        b1++;
     }
-    std::sort(a, a + a1, comp);
-    std::cout << "Changed sentence \n";
-    int index = 0;
-    while (index < a1) {
-        std::cout << a[index];
-        if (index < b1) {
-            std::cout << b[index];
-        }
-        index++;
-    }
+    return result;
+}
+int main() {
+    std::string input;
+
+    std::cout << "Enter sentence: ";
+    std::getline(std::cin, input);
+
+    std::string swappedCase = swapCase(input);
+
+    std::vector<std::string> words, separators;
+
+    splitString(swappedCase, words, separators);
+
+    std::sort(words.begin(), words.end(), compareWords);
+
+    std::string result = assembleString(words, separators);
+    std::cout << "Changed sentence: " << result << std::endl;
+
+    words.clear();separators.clear();
     return 0;
 }
