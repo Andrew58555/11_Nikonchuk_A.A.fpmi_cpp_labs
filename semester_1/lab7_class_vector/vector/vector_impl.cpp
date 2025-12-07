@@ -23,18 +23,19 @@ Vector::Vector(const Vector& other) : size_(other.size_), capacity_(other.capaci
 }
 
 Vector& Vector::operator=(const Vector& other) {
-    if (this != &other) {
-        Vector temp(other);
-        Swap(temp);
+    if (this == &other) {
+        return *this;
     }
+    size_ = other.size_;
+    capacity_ = other.capacity_;
+    delete[] vector_;
+    vector_ = new int[size_];
+    std::copy(other.vector_, other.vector_ + size_, vector_);
     return *this;
 }
 
 Vector::~Vector() {
     delete[] vector_;
-    vector_ = nullptr;
-    size_ = 0;
-    capacity_ = 0;
 }
 
 void Vector::Swap(Vector& other) {
