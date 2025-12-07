@@ -22,7 +22,6 @@ public:
 
     int& operator[](const size_t);
     const int& operator[](const size_t) const;
-
     int& At(const size_t);
     const int& At(const size_t) const;
 
