@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <numeric>
 #include <limits>
 
 void inputVector(std::vector<int>& vec);
@@ -66,11 +67,7 @@ void inputVector(std::vector<int>& vec) {
 }
 
 int calculateSum(const std::vector<int>& vec) {
-    int sum = 0;
-    for (int num : vec) {
-        sum += num;
-    }
-    return sum;
+    return std::accumulate(vec.begin(), vec.end(), 0);
 }
 
 int countEqualTo(const std::vector<int>& vec, int value) {
@@ -78,59 +75,54 @@ int countEqualTo(const std::vector<int>& vec, int value) {
 }
 
 int countGreaterThan(const std::vector<int>& vec, int value) {
-    return std::count_if(vec.begin(), vec.end(), [value](int num) { return num > value; });
+    return std::count_if(vec.begin(), vec.end(),
+        [value](int num) { return num > value; });
 }
 
 void replaceZerosWithAverage(std::vector<int>& vec) {
-    int sum = calculateSum(vec);
+    int sum = std::accumulate(vec.begin(), vec.end(), 0);
     int avg = sum / vec.size();
 
     std::cout << "5. Average (integer part) = " << avg << std::endl;
 
-    for (int& num : vec) {
-        if (num == 0) {
-            num = avg;
-        }
-    }
+    std::replace_if(vec.begin(), vec.end(),
+        [avg](int num) { return num == 0; },
+        avg);
 
     printVector(vec, "   Vector after replacing zeros with average:");
 }
 
 void addIntervalSumToAll(std::vector<int>& vec, int a, int b) {
     int n = vec.size();
-    a = std::max(1, std::min(a, n)) - 1;
-    b = std::max(1, std::min(b, n)) - 1;
+
+    a = std::clamp(a, 1, n) - 1;
+    b = std::clamp(b, 1, n) - 1;
 
     if (a > b) {
         std::swap(a, b);
     }
 
-    int interval_sum = 0;
-    for (int i = a; i <= b; ++i) {
-        interval_sum += vec[i];
-    }
+    int interval_sum = std::accumulate(vec.begin() + a, vec.begin() + b + 1, 0);
 
     std::cout << "   Sum in interval [" << a + 1 << ", " << b + 1 << "] = " << interval_sum << std::endl;
 
-    for (int& num : vec) {
-        num += interval_sum;
-    }
+    std::transform(vec.begin(), vec.end(), vec.begin(),
+        [interval_sum](int num) { return num + interval_sum; });
 
     printVector(vec, "   Vector after adding interval sum to all elements:");
 }
 
 void replaceEvenAbsWithDifference(std::vector<int>& vec) {
-    int min_el = *std::min_element(vec.begin(), vec.end());
-    int max_el = *std::max_element(vec.begin(), vec.end());
+    int min_el = *min_element(vec.begin(), vec.end());
+    int max_el = *max_element(vec.begin(), vec.end());
     int diff = max_el - min_el;
 
     std::cout << "7. Min element = " << min_el << ", Max element = " << max_el << ", Difference = " << diff << std::endl;
 
-    for (int& num : vec) {
-        if (abs(num) % 2 == 0) {
-            num = diff;
-        }
-    }
+    std::transform(vec.begin(), vec.end(), vec.begin(),
+        [diff](int num) {
+            return (std::abs(num) % 2 == 0) ? diff : num;
+        });
 
     printVector(vec, "   Vector after replacing numbers with even absolute value:");
 }
@@ -139,15 +131,17 @@ void removeDuplicateAbsoluteValues(std::vector<int>& vec) {
     std::vector<int> result;
     std::vector<int> seen_abs_values;
 
-    for (int num : vec) {
-        int abs_val = abs(num);
-        if (std::find(seen_abs_values.begin(), seen_abs_values.end(), abs_val) == seen_abs_values.end()) {
-            result.push_back(num);
-            seen_abs_values.push_back(abs_val);
-        }
-    }
+    std::copy_if(vec.begin(), vec.end(), std::back_inserter(result),
+        [&seen_abs_values](int num) {
+            int abs_val = std::abs(num);
+            if (std::find(seen_abs_values.begin(), seen_abs_values.end(), abs_val) == seen_abs_values.end()) {
+                seen_abs_values.push_back(abs_val);
+                return true;
+            }
+            return false;
+        });
 
-    vec = result;
+    vec = std::move(result);
     printVector(vec, "8. Vector after removing numbers with duplicate absolute values (keeping first):");
 }
 
@@ -157,11 +151,12 @@ void printVector(const std::vector<int>& vec, const std::string& message) {
     }
 
     std::cout << "   ";
-    for (size_t i = 0; i < vec.size(); ++i) {
-        std::cout << vec[i];
-        if (i < vec.size() - 1) {
-            std::cout << " ";
-        }
-    }
+    std::for_each(vec.begin(), vec.end(),
+        [i = 0, &vec](int num) mutable {
+            std::cout << num;
+            if (++i < vec.size()) {
+                std::cout << " ";
+            }
+        });
     std::cout << std::endl;
 }
