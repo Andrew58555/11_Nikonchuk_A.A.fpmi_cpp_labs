@@ -1,0 +1,5 @@
+1001|2|Smith John|Johnson Robert|Programming Fundamentals|2020
+1002|1|Williams James|Data Structures|2019
+1003|3|Davis Richard|Brown Michael|Wilson Thomas|Algorithms|2021
+1004|1|Miller David|Computer Networks|2018
+1005|2|Taylor Charles|Anderson Paul|Database Systems|2022
