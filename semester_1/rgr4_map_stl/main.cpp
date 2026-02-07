@@ -381,52 +381,10 @@ public:
     }
 };
 
-void createTestFile(const std::string& filename) {
-    std::ofstream file(filename);
-    file << "Иванов И.И.\n";
-    file << "1001\n";
-    file << "Mathematics 8\n";
-    file << "Physics 7\n";
-    file << "Informatics 9\n";
-    file << "\n";
-    
-    file << "Петров П.П.\n";
-    file << "1003\n";
-    file << "Mathematics 4\n";
-    file << "Physics 6\n";
-    file << "Chemistry 8\n";
-    file << "\n";
-    
-    file << "Сидоров С.С.\n";
-    file << "1002\n";
-    file << "Mathematics 7\n";
-    file << "Physics 9\n";
-    file << "Informatics 7\n";
-    file << "Chemistry 6\n";
-    file << "\n";
-    
-    file << "Алексеев А.А.\n";
-    file << "1004\n";
-    file << "Mathematics 3\n";
-    file << "Physics 4\n";
-    file << "Informatics 5\n";
-    file << "\n";
-    
-    file << "Иванов И.И.\n";
-    file << "1005\n";
-    file << "Mathematics 9\n";
-    file << "Physics 9\n";
-    file << "Informatics 10\n";
-    
-    file.close();
-    std::cout << "Test file created: " << filename << std::endl;
-}
-
 int main() {
     StudentManager manager;
     
     std::string filename = "students.txt";
-    createTestFile(filename);
     
     if (!manager.loadFromFile(filename)) {
         std::cerr << "Failed to load data. Program terminated." << std::endl;
