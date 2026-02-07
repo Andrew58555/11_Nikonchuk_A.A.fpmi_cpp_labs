@@ -81,7 +81,7 @@ inline void PrintInventoryWithFormat(InventoryPtr& inventory) {
     std::cout << "*******************************\n";
     inventory->print_info();
     std::cout << "*******************************\n";
-    std::cout << "End printing with all unselected items:\n";
+    std::cout << "End printing with all unselected items.\n";
     std::cout << "*******************************\n";
     
     std::cout << '\n' << std::endl;
@@ -93,7 +93,7 @@ inline void PrintInventoryWithFormat(InventoryPtr& inventory) {
     std::cout << "*******************************\n";
     inventory->print_info();
     std::cout << "*******************************\n";
-    std::cout << "End printing with all selected items:\n";
+    std::cout << "End printing with all selected items.\n";
     std::cout << "*******************************" << std::endl;
 }
 

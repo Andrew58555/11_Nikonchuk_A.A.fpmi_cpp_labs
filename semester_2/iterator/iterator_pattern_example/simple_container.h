@@ -27,9 +27,12 @@ private:
 public:
     Container();
     Container(size_t);
+    Container(const Container&);
 
-    void Push(int item = 0);
+    void Push(int);
     size_t Size() const;
+
+    Container& operator=(const Container&);
 
     int& operator[](size_t);
     const int& operator[](size_t) const;

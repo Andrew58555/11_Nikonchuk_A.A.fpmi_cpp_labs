@@ -3,12 +3,17 @@
 
 int main() {
 
-#if 1
+#ifdef SIMPLE
     InventoryPtr inventory = utils::CreateSimpleInventory();
     utils::PrintInventoryWithFormat(inventory);
+
+    std::cout << "\n*******************************\n";
+    std::cout << "Using of all items\n";
+    std::cout << "*******************************" << std::endl;
+    inventory->use();
 #endif
 
-#if 0
+#ifdef RANDOM
     std::mt19937 gen;
 
     InventoryPtr inventory = std::make_unique<Inventory>();
@@ -22,6 +27,11 @@ int main() {
     inventory->add_item(std::move(swords_inventory));
 
     utils::PrintInventoryWithFormat(inventory);
+
+    std::cout << "\n*******************************\n";
+    std::cout << "Using of all items\n";
+    std::cout << "*******************************" << std::endl;
+    inventory->use();
 #endif
 
     return 0;

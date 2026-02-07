@@ -21,7 +21,7 @@ public:
     Inventory(): Item(nullptr), cells_() {
     } 
 	
-    void add_item(ItemPtr&& item) {
+    void add_item(ItemPtr item) {
         if (inventory_.size() == MAX_CELLS_NUMBER) {
             std::cout << "Inventory is full\n";
             return;
@@ -51,13 +51,14 @@ public:
 
     // print information about ALL items
     // in composite
-    void print_info() const override {
-        std::cout << "<--------------------->\n";
+    void print_info(size_t indent = 0u) const override {
+        std::cout << std::string(indent, ' ') << "<--------------------->\n";
+        indent += 4u;
         for (const auto& [cell, item] : inventory_) {
-            std::cout << "Cell: " << cell << '\n';
-            item->print_info();
+            std::cout << std::string(indent, ' ') << "Cell: " << cell << '\n';
+            item->print_info(indent + 2u);
         }
-        std::cout << "<--------------------->" << std::endl;
+        std::cout << std::string(indent - 4u, ' ') << "<--------------------->" << std::endl;
     }
 
     // use ALL items in composite
@@ -76,4 +77,3 @@ public:
 
 
 using InventoryPtr = std::unique_ptr<Inventory>;
-

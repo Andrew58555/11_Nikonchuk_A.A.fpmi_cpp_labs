@@ -12,7 +12,7 @@ protected:
     ItemInfoPtr info_;
 
 protected:
-    Item(ItemInfoPtr&& info): info_(std::move(info)) {}
+    Item(ItemInfoPtr info): info_(std::move(info)) {}
 
 public:
     virtual void select() {
@@ -23,7 +23,7 @@ public:
         info_->is_selected_ = false;
     }
 
-    virtual void print_info() const = 0;
+    virtual void print_info(size_t indent = 0u) const = 0;
     virtual void use() = 0;
     
     // virtual dtor

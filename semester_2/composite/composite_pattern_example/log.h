@@ -36,11 +36,11 @@ public:
      : Item(std::make_unique<ItemInfo>(LogTypeToString(type) + " log", amount, std::nullopt, true, false)), 
         log_type_(type) {}
 
-    void print_info() const override {
+    void print_info(size_t indent = 0u) const override {
         if (info_->is_selected_) {
-            std::cout << *info_;
+            info_->PrintWithIndent(std::cout, indent);
         } else {
-            std::cout << "Item \"" << info_->name_ << "\" is unselected\n";
+            std::cout << std::string(indent, ' ') << "Item \"" << info_->name_ << "\" is unselected\n";
         }
     }
 

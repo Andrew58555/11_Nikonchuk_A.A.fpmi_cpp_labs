@@ -18,26 +18,30 @@ struct ItemInfo {
             bool is_stackable, bool is_selected)
       : name_(name), amount_(amount), durability_(durability),
       is_stackable_(is_stackable), is_selected_(is_selected) {}
+
+    void PrintWithIndent(std::ostream& out, size_t indent = 0u) const {
+        std::string outer_line_prefix = std::string(indent, ' ');
+        std::string inner_line_prefix = std::string(indent + 2u, ' ');
+
+        out << outer_line_prefix << "Item information:\n";
+        out << outer_line_prefix << "{\n";
+        out << inner_line_prefix << "Name: " << name_ << '\n';
+        out << inner_line_prefix << "Amount: " << amount_ << '\n';
+        if (durability_.has_value()) {
+            out << inner_line_prefix << "Durability: " << durability_.value() << '\n';
+        }
+        out << inner_line_prefix << (is_stackable_ ? "Stackable" : "Not stackable") << '\n';
+        out << inner_line_prefix << (is_selected_ ? "Selected" : "Not selected") << '\n';
+        out << outer_line_prefix << "}" << std::endl;
+    }
 };
 
 
 inline std::ostream& operator<<(std::ostream& out, const ItemInfo& info) {
-
-    std::string line_prefix = "  ";
-    out << "Item information:\n";
-    out << "{\n";
-    out << line_prefix << "Name: " << info.name_ << '\n';
-    out << line_prefix << "Amount: " << info.amount_ << '\n';
-    if (info.durability_.has_value()) {
-        out << line_prefix << "Durability: " << info.durability_.value() << '\n';
-    }
-    out << line_prefix << (info.is_stackable_ ? "Stackable" : "Not stackable") << '\n';
-    out << line_prefix << (info.is_selected_ ? "Selected" : "Not selected") << '\n';
-    out << "}" << std::endl;
     
+    info.PrintWithIndent(out);  
     return out;
 }
 
 
 using ItemInfoPtr = std::unique_ptr<ItemInfo>;
-
