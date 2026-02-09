@@ -1,29 +1,29 @@
-Иванов И.И.
+Ivanov I.I.
 1001
 Mathematics 8
 Physics 7
 Informatics 9
 
-Петров П.П.
+Petrov P.P.
 1003
 Mathematics 4
 Physics 6
 Chemistry 8
 
-Сидоров С.С.
+Sidorov S.S.
 1002
 Mathematics 7
 Physics 9
 Informatics 7
 Chemistry 6
 
-Алексеев А.А.
+Alekseev A.A.
 1004
 Mathematics 3
 Physics 4
 Informatics 5
 
-Иванов И.И.
+Ivanov I.I.
 1005
 Mathematics 9
 Physics 9
